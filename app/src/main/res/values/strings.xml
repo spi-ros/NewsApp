@@ -1,0 +1,24 @@
+<resources>
+    <string name="app_name">News App</string>
+    <string name="no_internet">No internet connection</string>
+    <string name="no_news">No news found.\nPlease check your Internet connection\nor try to refresh the page</string>
+    <string name="problem_http_request">Problem making the HTTP request.</string>
+    <string name="error_with_creating_url">Error with creating URL</string>
+    <string name="error_response_code">Error response code:</string>
+    <string name="problem_retrieving_the_news_JSON_results">Problem retrieving the news JSON results.</string>
+    <string name="response">response</string>
+    <string name="results">results</string>
+    <string name="section_name">sectionName</string>
+    <string name="web_title">webTitle</string>
+    <string name="web_publication_date">webPublicationDate</string>
+    <string name="web_url">webUrl</string>
+    <string name="problem_parsing">Problem parsing the news JSON results</string>
+    <string name="request_url"><![CDATA[http://content.guardianapis.com/search?show-tags=author&order-by=newest&page-size=20&q=%22uk%20news%22&api-key=2bf459f6-f038-495d-af72-fba1ed072f31]]></string>
+    <string name="dateTime_pattern_income">yyyy-MM-dd\'T\'HH:mm:ss\'Z\'</string>
+    <string name="date_pattern_outcome">d MMM, yyyy</string>
+    <string name="time_pattern_outcome">kk:mm:ss</string>
+    <string name="author">author</string>
+    <string name="author_unknown">Author unknown</string>
+    <string name="no_author">no author</string>
+    <string name="tags">tags</string>
+</resources>
