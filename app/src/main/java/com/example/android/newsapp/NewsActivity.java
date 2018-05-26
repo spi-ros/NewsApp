@@ -7,9 +7,11 @@ import android.content.Loader;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.net.Uri;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
@@ -21,28 +23,38 @@ import java.util.List;
 public class NewsActivity extends AppCompatActivity implements LoaderManager.LoaderCallbacks<List<News>> {
 
     private static final String LOG_TAG = NewsActivity.class.getName();
+    /**
+     * Constant value for the news loader ID. We can choose any integer.
+     * This really only comes into play if you're using multiple loaders.
+     */
+    private static final int NEWS_LOADER_ID = 1;
+    private SwipeRefreshLayout mySwipeRefreshLayout;
+    private ConnectivityManager connectivityManager;
+    private NetworkInfo networkInfo;
 
-    ConnectivityManager connectivityManager;
-    NetworkInfo networkInfo = null;
-    LoaderManager loaderManager;
     /**
      * Adapter for the list of news
      */
     private NewsAdapter mAdapter;
 
     /**
-     * Constant value for the news loader ID. We can choose any integer.
-     * This really only comes into play if you're using multiple loaders.
+     * TextView that is displayed when the list is empty
      */
-    private static final int NEWS_LOADER_ID = 1;
-
-    /** TextView that is displayed when the list is empty */
     private TextView mEmptyStateTextView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        mySwipeRefreshLayout = findViewById(R.id.swipeRefresh);
+        mySwipeRefreshLayout.setOnRefreshListener(
+                new SwipeRefreshLayout.OnRefreshListener() {
+                    @Override
+                    public void onRefresh() {
+                        updateList();
+                    }
+                });
 
         mEmptyStateTextView = findViewById(R.id.empty_text_view);
 
@@ -82,7 +94,6 @@ public class NewsActivity extends AppCompatActivity implements LoaderManager.Loa
                 getSystemService(Context.CONNECTIVITY_SERVICE);
 
         // Get details on the currently active default data network
-
         if (connectivityManager != null) {
             networkInfo = connectivityManager.getActiveNetworkInfo();
         }
@@ -91,7 +102,7 @@ public class NewsActivity extends AppCompatActivity implements LoaderManager.Loa
         if (networkInfo != null && networkInfo.isConnected()) {
 
             // Get a reference to the LoaderManager, in order to interact with loaders.
-            loaderManager = getLoaderManager();
+            LoaderManager loaderManager = getLoaderManager();
 
             // Initialize the loader. Pass in the int ID constant defined above and pass in null for
             // the bundle. Pass in this activity for the LoaderCallbacks parameter (which is valid
@@ -111,8 +122,6 @@ public class NewsActivity extends AppCompatActivity implements LoaderManager.Loa
 
     @Override
     public Loader<List<News>> onCreateLoader(int id, Bundle bundle) {
-
-        Log.e(LOG_TAG, "onCreateLoader()");
         //URL for news data from the Guardian
         String GUARDIAN_REQUEST_URL = this.getString(R.string.request_url);
         return new NewsLoader(this, GUARDIAN_REQUEST_URL);
@@ -120,8 +129,6 @@ public class NewsActivity extends AppCompatActivity implements LoaderManager.Loa
 
     @Override
     public void onLoadFinished(Loader<List<News>> loader, List<News> newest) {
-
-        Log.e(LOG_TAG, "onLoadFinished()");
         // Hide loading indicator because the data has been loaded
         View loadingIndicator = findViewById(R.id.progress_bar);
         loadingIndicator.setVisibility(View.GONE);
@@ -132,19 +139,11 @@ public class NewsActivity extends AppCompatActivity implements LoaderManager.Loa
 
         // Get details on the currently active default data network
         if (connectivityManager != null) {
-            networkInfo = connectivityManager.getActiveNetworkInfo();
-        }
-
-        // If there is a network connection, fetch data
-        if (networkInfo == null || !networkInfo.isConnected()) {
-
-            // Update empty state with no connection error message
+            // Set empty state text to display "No internet connection."
             mEmptyStateTextView.setText(R.string.no_internet);
-        } else {
-
-            // Set empty state text to display "No news found."
-            mEmptyStateTextView.setText(R.string.no_news);
         }
+        // Set empty state text to display "No news found."
+        mEmptyStateTextView.setText(R.string.no_news);
 
         // Clear the adapter of previous news articles data
         mAdapter.clear();
@@ -158,8 +157,37 @@ public class NewsActivity extends AppCompatActivity implements LoaderManager.Loa
 
     @Override
     public void onLoaderReset(Loader<List<News>> loader) {
-        Log.e(LOG_TAG, "onLoaderReset()");
         // Loader reset, so we can clear out our existing data.
         mAdapter.clear();
+    }
+
+    private void updateList() {
+        finish();
+        startActivity(getIntent());
+        mySwipeRefreshLayout.setRefreshing(false); // Disables the refresh icon
+    }
+
+    /*
+     * Listen for option item selections so that we receive a notification
+     * when the user requests a refresh by selecting the refresh action bar item.
+     */
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+
+            // Check if user triggered a refresh:
+            case R.id.menu_refresh:
+                Log.i(LOG_TAG, "Refresh menu item selected");
+
+                // Signal SwipeRefreshLayout to start the progress indicator
+                mySwipeRefreshLayout.setRefreshing(true);
+
+                // Start the refresh background task.
+                // This method calls setRefreshing(false) when it's finished.
+                updateList();
+                return true;
+        }
+        // User didn't trigger a refresh, let the superclass handle this action
+        return super.onOptionsItemSelected(item);
     }
 }

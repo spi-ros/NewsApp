@@ -22,7 +22,7 @@ public class NewsAdapter extends ArrayAdapter<News> {
      * Constructs a new {@link NewsAdapter}.
      *
      * @param context of the app
-     * @param newest  is the list of earthquakes, which is the data source of the adapter
+     * @param newest  is the list of articles, which is the data source of the adapter
      */
     NewsAdapter(@NonNull Context context, List<News> newest) {
         super(context, 0, newest);

@@ -32,7 +32,7 @@ public class News {
         return mTitle;
     }
 
-    public String  getDateTime() {
+    public String getDateTime() {
         return mDateTime;
     }
 

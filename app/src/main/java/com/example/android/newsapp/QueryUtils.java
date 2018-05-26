@@ -3,7 +3,6 @@ package com.example.android.newsapp;
 import android.content.Context;
 import android.text.TextUtils;
 import android.util.Log;
-import android.widget.TextView;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -13,7 +12,6 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
-import java.lang.reflect.Array;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
@@ -30,7 +28,6 @@ public final class QueryUtils {
      * Query the GUARDIAN dataSet and return a list of {@link News} objects.
      */
     public static List<News> fetchNewsData(String requestUrl, Context context) {
-        Log.e(LOG_TAG, "fetchNewsData()");
         // Create URL object
         URL url = createUrl(requestUrl, context);
 
@@ -136,21 +133,21 @@ public final class QueryUtils {
             JSONObject baseJsonResponse = new JSONObject(newsJSON);
 
             // Extract the JSONObject associated with the key called "response".
-            JSONObject newsObject = baseJsonResponse.getJSONObject(context.getString(R.string.response));
+            JSONObject response = baseJsonResponse.getJSONObject(context.getString(R.string.response));
 
             // Extract the JSONArray associated with the key called "results",
             // which represents a list of results (news articles).
-            JSONArray newsArray = newsObject.getJSONArray(context.getString(R.string.results));
+            JSONArray results = response.getJSONArray(context.getString(R.string.results));
 
-            // For each article in the newsArray, create a {@link News} object
-            for (int i = 0; i < newsArray.length(); i++) {
+            // For each article in the results, create a {@link News} object
+            for (int i = 0; i < results.length(); i++) {
                 // Get a single article at position i within the list of articles.
-                JSONObject currentNews = newsArray.getJSONObject(i);
+                JSONObject currentNews = results.getJSONObject(i);
 
                 String author;
 
                 JSONArray tagsArray = currentNews.getJSONArray(context.getString(R.string.tags));
-                
+
                 if (tagsArray.length() > 0) {
                     JSONObject currentTag = tagsArray.getJSONObject(0);
                     author = currentTag.getString(context.getString(R.string.web_title));
