@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="settings_order_by_labels">
+        <item>@string/settings_order_by_newest_publish_label</item>
+        <item>@string/settings_order_by_oldest_publish_label</item>
+        <item>@string/settings_order_by_relevance_publish_label</item>
+
+    </string-array>
+
+    <string-array name="settings_order_by_values">
+        <item>@string/settings_order_by_newest_publish_value</item>
+        <item>@string/settings_order_by_oldest_publish_value</item>
+        <item>@string/settings_order_by_relevance_publish_value</item>
+    </string-array>
+
+    <string-array name="settings_section_labels">
+        <item>@string/settings_all_topics_section_label</item>
+        <item>@string/settings_politics_section_label</item>
+        <item>@string/settings_music_section_label</item>
+        <item>@string/settings_lifeandstyle_section_label</item>
+
+    </string-array>
+
+    <string-array name="settings_section_values">
+        <item>@string/settings_all_topic_section_value</item>
+        <item>@string/settings_politics_section_value</item>
+        <item>@string/settings_music_section_value</item>
+        <item>@string/settings_lifeandstyle_section_value</item>
+    </string-array>
+
+</resources>

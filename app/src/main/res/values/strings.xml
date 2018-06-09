@@ -1,6 +1,7 @@
 <resources>
     <string name="app_name">News App</string>
-    <string name="no_internet"><font size="16">Oups, it seems like there\'s no internet connection..</font><font size="12">\nFind out what\'s going on and then swipe down to refresh the app</font></string>
+    <string name="no_internet"><font size="16">Oups, it seems like there\'s no internet connection..
+    </font><font size="12">\nFind out what\'s going on and then swipe down to refresh the app</font></string>
     <string name="no_news">No news found. Please swipe down to\nrefresh the page, or else come back later.</string>
     <string name="problem_http_request">Problem making the HTTP request.</string>
     <string name="error_with_creating_url">Error with creating URL</string>
@@ -13,7 +14,7 @@
     <string name="web_publication_date">webPublicationDate</string>
     <string name="web_url">webUrl</string>
     <string name="problem_parsing">Problem parsing the news JSON results</string>
-    <string name="request_url"><![CDATA[https://content.guardianapis.com/search?order-by=newest&show-tags=contributor&page-size=20&q=%22uk%20news%22&api-key=2bf459f6-f038-495d-af72-fba1ed072f31]]></string>
+    <string name="request_url"><![CDATA[https://content.guardianapis.com/search]]></string>
     <string name="dateTime_pattern_income">yyyy-MM-dd\'T\'HH:mm:ss\'Z\'</string>
     <string name="date_pattern_outcome">d MMM, yyyy</string>
     <string name="time_pattern_outcome">kk:mm:ss</string>
@@ -21,8 +22,55 @@
     <string name="author_unknown">Author unknown</string>
     <string name="no_author">no author</string>
     <string name="tags">tags</string>
-    <string name="menu_refresh">menu refresh</string>
-    <string name="settings_menu_item">Settings</string>
-    <string name="settings_title">Earthquake Settings</string>
+
+    <string name="order_by_key">order-by</string>
+    <string name="page_size_key">page-size</string>
+    <string name="api_key_key">api-key</string>
+    <string name="api_key">2bf459f6-f038-495d-af72-fba1ed072f31</string>
+    <string name="show_tags_key">show-tags</string>
+    <string name="contributor">contributor</string>
+
+    <string name="settings_menu_item">News Settings</string>
+    <string name="menu_refresh">Refresh</string>
+    <string name="settings_title">Settings</string>
+    <string name="preferences_editText_label">Choose how many news you want to see (From 1 to 50)</string>
+
+
+    <string name="settings_page_size_label">@string/preferences_editText_label</string>
+    <string name="settings_page_size_key" translatable="false">page-size</string>
+    <string name="settings_page_size_default" translatable="false">20</string>
+
+
+    <string name="settings_order_by_label">Order By</string>
+    <string name="settings_order_by_key" translatable="false">order-by</string>
+    <string name="settings_order_by_default" translatable="false">@string/settings_order_by_newest_publish_value</string>
+
+    <string name="settings_order_by_newest_publish_label">Most recent</string>
+    <string name="settings_order_by_newest_publish_value" translatable="false">newest</string>
+
+    <string name="settings_order_by_oldest_publish_label">Oldest</string>
+    <string name="settings_order_by_oldest_publish_value" translatable="false">oldest</string>
+
+    <string name="settings_order_by_relevance_publish_label">Relevance</string>
+    <string name="settings_order_by_relevance_publish_value" translatable="false">relevance</string>
+
+
+    <string name="settings_section_label">Topics</string>
+    <string name="settings_section_key" translatable="false">settings_section</string>
+    <string name="settings_section_default" translatable="false">all</string>
+
+    <string name="settings_all_topics_section_label">All Topics</string>
+    <string name="settings_all_topic_section_value" translatable="false">all</string>
+
+    <string name="settings_politics_section_label">Politics</string>
+    <string name="settings_politics_section_value" translatable="false">politics</string>
+
+    <string name="settings_music_section_label">Music</string>
+    <string name="settings_music_section_value" translatable="false">music</string>
+
+    <string name="settings_lifeandstyle_section_label">Life and Style</string>
+    <string name="settings_lifeandstyle_section_value" translatable="false">lifeandstyle</string>
+    <string name="section_key">section</string>
+
 
 </resources>
